@@ -53,7 +53,7 @@ app.use(session({
     cookie: { expires: new Date(253402300799999) }
 }));
 
-app.use(Express.static(__dirname + '/static'));
+app.use(Express.static('/home/pi/vsTest/static'));
 
 // handlebars (template engine)
 //app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -80,7 +80,7 @@ function puts(error, stdout, stderr) { return stdout; }
  */
 app.get("/com", function (req, res) {
     //res.send("404 alter, 404!");
-    res.sendFile('/home/vs/nodeJS/main.html')
+    res.sendFile('/home/pi/vsTest/main.html')
 });
 
 
@@ -101,7 +101,7 @@ app.get("/*", function (req, res) {
  */
 app.post('/commandTest', function (req, res) {
     if( req.body.password === "hyperhyper") {
-        runCom("ssh pi@10.220.12.114 ssh vs181 " + req.body.command, function (stdout) { res.send(stdout)});
+        runCom(req.body.command, function (stdout) { res.send(stdout)});
     }
     else {
         console.log("wrong pw");
