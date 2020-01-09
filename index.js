@@ -78,6 +78,14 @@ function puts(error, stdout, stderr) { return stdout; }
 /** 
  * 404
  */
+app.get("/fallback", function (req, res) {
+    //res.send("404 alter, 404!");
+    res.sendFile('/home/pi/vsTest/main.html')
+});
+
+/** 
+ * 404
+ */
 app.get("/com", function (req, res) {
     //res.send("404 alter, 404!");
     res.sendFile('/home/pi/vsTest/main.html')
@@ -88,8 +96,15 @@ app.get("/com", function (req, res) {
  * 404
  */
 app.get("/*", function (req, res) {
-    res.send("404 alter, 404!");
-    //res.sendFile('/home/pi/hype/static/assets/search-animal.mp4')
+const fs = require('fs');
+
+    var names = "first";
+
+    fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
+        console.log(file);
+        name = name + "\n" + file;
+    });
+    res.send("dörte");
 });
 
 
