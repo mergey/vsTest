@@ -120,9 +120,12 @@ app.get("/result/*", function (req, res) {
 
     var fileData = fs.readFileSync('/home/pi/cloud/results/' + file + '.result', 'utf8');
     var lines = fileData.split('\n');
+    console.log(fileData);
+    console.log(lines);
     
     for(var i = 0;i < lines.length;i++){
         var line = fileData[i];
+        console.log(line);
         if(line.indexOf('{') < 0) {
             break;
         }
