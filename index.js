@@ -115,7 +115,7 @@ app.get("/result/*", function (req, res) {
 
     var html = '<!DOCTYPE html>\n<html>\n<head>\n<style>\ntable {\nfont-family: arial, sans-serif;\nborder-collapse: collapse;\nwidth: 100%;\n}' + 
     'td, th {\nborder: 1px solid #dddddd;\ntext-align: left;\npadding: 8px;\n}' +    
-    'tr:nth-child(even) {\nbackground-color: #dddddd;\n}\n</style>\n</head><body>\n' + file + '<table style="width:50%">\n<tr>\n'
+    'tr:nth-child(even) {\nbackground-color: #dddddd;\n}\n</style>\n</head><body><h1>\n' + file + '</h1><table>\n<tr>\n'
     
     headers.forEach(
         header => html = html + '<th>' + header + '</th>\n'
