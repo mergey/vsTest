@@ -95,8 +95,10 @@ app.get("/com", function (req, res) {
  * 404
  */
 app.get("/result/*", function (req, res) {
+    var file = req.url;
+    var fileName = file.substring(file.lastIndexOf('/'), file.length-1);
     //res.send("404 alter, 404!");
-    res.send(req.url);
+    res.send(fileName);
 });
 
 
@@ -110,7 +112,7 @@ const fs = require('fs');
 
     fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
         console.log(file);
-        html = html + '<a href="/result/' + file + '">' + file + '</a>\n'
+        html = html + '<a href="/result/' + file + '">' + file.substring(0, file.lastIndexOf('.')) + '</a><br>\n';
     });
     html = html + '</body>';
     res.send(html);
