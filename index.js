@@ -102,9 +102,9 @@ const fs = require('fs');
 
     fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
         console.log(file);
-        name = name + "\n" + file;
+        names = names + "\n" + file;
     });
-    res.send("dörte");
+    res.send("dörte\n" + names);
 });
 
 
