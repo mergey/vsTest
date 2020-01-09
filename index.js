@@ -103,12 +103,15 @@ app.get("/result/*", function (req, res) {
 
 
     var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header', 'utf8');
+    var headers = headerData.split('	');
+    /*
     headers = [];
     while( headerData.indexOf('	') > -1 ) {
         headers.push(headerData.substring(0, headerData.indexOf('	')));
         headerData = headerData.substring(headerData.indexOf('	')+1, headerData.lenght);
     }
     headers.push(headerData.substring(0, headerData.length-1));
+    */
 
     var html = '<body>\n' + file + '<table style="width:50%">\n<tr>\n'
     
@@ -122,10 +125,8 @@ app.get("/result/*", function (req, res) {
     var lines = fileData.split('\n');
     
     for(var i = 0;i < lines.length;i++){
-        console.log(lines[i]);
         try {         
         var jayZ = JSON.parse(lines[i]);
-        console.log(jayZ);
         html = html + '<tr>\n';
         headers.forEach(
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
