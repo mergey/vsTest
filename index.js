@@ -117,14 +117,12 @@ app.get("/result/*", function (req, res) {
     );
 
     html = html + '</tr>\n';
+
+    var fileData = fs.readFileSync('/home/pi/cloud/results/' + file + '.result', 'utf8');
+    var lines = fileData.split('\n');
     
-    const rl = readline.createInterface({
-        input: fs.createReadStream('/home/pi/cloud/results/' + file + '.result'),
-        crlfDelay: Infinity
-      });
-    
-    var isDone = 0;
-    rl.on('line', (line) => {
+    for(var i = 0;i < lines.length;i++){
+        var line = fileData[i];
         html = html + '<tr>\n';
         jayZ = JSON.parse(line);  
         console.log(jayZ);
@@ -132,14 +130,11 @@ app.get("/result/*", function (req, res) {
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
         html = html + '</tr>\n';
-        if(line.indexOf('{') < 0 && isDone == 0) {  
-            console.log(html);
-            html = html + '</table>\n';
-            html = html + '</body>';
-            res.send(html);
-            isDone = 1;
-        }
-    });
+    }
+    
+    html = html + '</table>\n';
+    html = html + '</body>';
+    res.send(html);
     
 });
 
