@@ -108,7 +108,7 @@ app.get("/result/*", function (req, res) {
         headers.push(headerData.substring(0, headerData.indexOf('	')));
         headerData = headerData.substring(headerData.indexOf('	')+1, headerData.lenght);
     }
-    headers.push(headerData.substring(0, headerData.length));
+    headers.push(headerData.substring(0, headerData.length-1));
 
     var html = '<body>\n' + file + '<table style="width:50%">\n<tr>\n'
     
@@ -123,6 +123,7 @@ app.get("/result/*", function (req, res) {
     });
       
     lineReader.on('line', function (line) {
+        console.log(line);
         html = html + '<tr>\n';
         jayZ = JSON.parse(line);
         headers.forEach(
