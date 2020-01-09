@@ -131,10 +131,12 @@ app.get("/result/*", function (req, res) {
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
         html = html + '</tr>\n';
-        html = html + '</table>\n';
-        html = html + '</body>';
-    
-        res.send(html);
+        if(line.indexOf(0) != '{') {
+            html = html + '</table>\n';
+            html = html + '</body>';
+            res.send(html);
+            return;
+        }
     });
     
 });
