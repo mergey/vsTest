@@ -129,14 +129,13 @@ app.get("/result/*", function (req, res) {
         html = html + '<tr>';
         jayZ = JSON.parse(line);
         headers.forEach(
-            element => html = html + '<td>' + element + '</td>'
+            element => html = html + '<td>' + jayZ[element] + '</td>'
             );
         html = html + '</tr>';
     });
     
     html = html + '</table>';
     //const fileData = JSON.parse(fs.readFileSync(path.join(__dirname + filename)));
-    const HTTP_PORT = CONFIG.HTTP_PORT;
     html = html + '</body>';
 
     res.send(html);
