@@ -131,13 +131,12 @@ app.get("/result/*", function (req, res) {
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
         html = html + '</tr>\n';
+        html = html + '</table>\n';
+        html = html + '</body>';
+    
+        res.send(html);
     });
     
-    html = html + '</table>\n';
-    //const fileData = JSON.parse(fs.readFileSync(path.join(__dirname + filename)));
-    html = html + '</body>';
-
-    res.send(html);
 });
 
 
