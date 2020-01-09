@@ -19,7 +19,7 @@ var cookieParser = require('cookie-parser');
 //var cookieSession     = require('cookie-session');
 var session = require('express-session');
 var Express = require('express');
-var readline = require('readline');
+const readline = require('readline');
 
 
 
@@ -116,13 +116,14 @@ app.get("/result/*", function (req, res) {
         header => html = html + '<th>' + header + '</th>\n'
     );
 
-    html = html + '</tr>';
+    html = html + '</tr>\n';
     
-    var lineReader = require('readline').createInterface({
-        input: require('fs').createReadStream('/home/pi/cloud/results/' + file + '.result')
-    });
+    const rl = readline.createInterface({
+        input: fs.createReadStream('/home/pi/cloud/results/' + file + '.result'),
+        crlfDelay: Infinity
+      });
       
-    lineReader.on('line', function (line) {
+    rl.on('line', (line) => {  
         console.log(line);
         html = html + '<tr>\n';
         jayZ = JSON.parse(line);
