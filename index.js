@@ -99,18 +99,18 @@ app.get("/com", function (req, res) {
 app.get("/result/*", function (req, res) {
 
     var file = req.url;
-    file = file.substring(file.lastIndexOf('/') +1, file.lastIndexOf('.'));
+    file = file.subString(file.lastIndexOf('/') +1, file.lastIndexOf('.'));
 
 
     var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header');
     headers = [];
     while( headerData.indexOf(' ') > -1 ) {
         while(headerData.substring(0,1) == ' ') {
-            headerData = headerData.substring(1, headerData.length);
+            headerData = headerData.subString(1, headerData.length);
         }
-        headers.push(headerData.substring(0, headerData.indexOf(' ')));
+        headers.push(headerData.subString(0, headerData.indexOf(' ')));
     }
-    headers.push(headerData.substring(0, headerData.length));
+    headers.push(headerData.subString(0, headerData.length));
 
     var html = '<body>\n' + file + '<table style="width:100%">\n<tr>\n'
     
@@ -153,7 +153,7 @@ const fs = require('fs');
 
     fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
         console.log(file);
-        html = html + '<a href="/result/' + file + '">' + file.substring(0, file.lastIndexOf('.')) + '</a><br>\n';
+        html = html + '<a href="/result/' + file + '">' + file.subString(0, file.lastIndexOf('.')) + '</a><br>\n';
     });
     html = html + '</body>';
     res.send(html);
