@@ -122,8 +122,8 @@ app.get("/result/*", function (req, res) {
     var lines = fileData.split('\n');
     
     for(var i = 0;i < lines.length;i++){
-        console.log(fileData[i]);
-        var jayZ = JSON.parse(fileData[i]);
+        console.log(lines[i]);
+        var jayZ = JSON.parse(lines[i]);
         console.log(jayZ);
         html = html + '<tr>\n';
         headers.forEach(
