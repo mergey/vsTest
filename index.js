@@ -123,13 +123,17 @@ app.get("/result/*", function (req, res) {
     
     for(var i = 0;i < lines.length;i++){
         console.log(lines[i]);
+        try {         
         var jayZ = JSON.parse(lines[i]);
         console.log(jayZ);
         html = html + '<tr>\n';
         headers.forEach(
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
-        html = html + '</tr>\n';
+        html = html + '</tr>\n';}
+        catch (e) {
+           console.log('fehler aber is ok');
+        }
     }
     
     html = html + '</table>\n';
