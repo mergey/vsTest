@@ -122,7 +122,8 @@ app.get("/result/*", function (req, res) {
         input: fs.createReadStream('/home/pi/cloud/results/' + file + '.result'),
         crlfDelay: Infinity
       });
-      
+    
+    var isDone = 0;
     rl.on('line', (line) => {
         html = html + '<tr>\n';
         jayZ = JSON.parse(line);  
@@ -131,11 +132,11 @@ app.get("/result/*", function (req, res) {
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
         html = html + '</tr>\n';
-        if(line.indexOf('{') < 0) {
+        if(line.indexOf('{') < 0 && isDone == 0) {
             html = html + '</table>\n';
             html = html + '</body>';
             res.send(html);
-            break;
+            isDone = 1;
         }
     });
     
