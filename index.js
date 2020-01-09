@@ -91,6 +91,14 @@ app.get("/com", function (req, res) {
     res.sendFile('/home/pi/vsTest/main.html')
 });
 
+/** 
+ * 404
+ */
+app.get("/result/*", function (req, res) {
+    //res.send("404 alter, 404!");
+    res.send(req.url);
+});
+
 
 /** 
  * 404
@@ -98,13 +106,14 @@ app.get("/com", function (req, res) {
 app.get("/*", function (req, res) {
 const fs = require('fs');
 
-    var names = "first";
+    var html = '<body>\n';
 
     fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
         console.log(file);
-        names = names + "\n" + file;
+        html = html + '<a href="/result/' + file + '">' + file + '</a>\n'
     });
-    res.send("dörte\n" + names);
+    html = html + '</body>';
+    res.send(html);
 });
 
 
