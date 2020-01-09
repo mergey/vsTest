@@ -110,29 +110,28 @@ app.get("/result/*", function (req, res) {
     }
     headers.push(headerData.substring(0, headerData.length));
 
-    var html = '<body>\n' + file + '<table style="width:100%">\n<tr>\n'
+    var html = '<body>\n' + file + '<table style="width:50%">\n<tr>\n'
     
     headers.forEach(
-        header => html = html + '<th>' + header + '</th>'
+        header => html = html + '<th>' + header + '</th>\n'
     );
 
     html = html + '</tr>';
     
-    var rd = readline.createInterface({
-        input: fs.createReadStream('/home/pi/cloud/results/' + file + '.result'),
-        output: process.stdout,
-        console: false
+    var lineReader = require('readline').createInterface({
+        input: require('fs').createReadStream('/home/pi/cloud/results/' + file + '.result')
     });
-    rd.on('line', function(line) {
-        html = html + '<tr>';
+      
+    lineReader.on('line', function (line) {
+        html = html + '<tr>\n';
         jayZ = JSON.parse(line);
         headers.forEach(
-            element => html = html + '<td>' + jayZ[element] + '</td>'
+            element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
-        html = html + '</tr>';
+        html = html + '</tr>\n';
     });
     
-    html = html + '</table>';
+    html = html + '</table>\n';
     //const fileData = JSON.parse(fs.readFileSync(path.join(__dirname + filename)));
     html = html + '</body>';
 
