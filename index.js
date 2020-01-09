@@ -120,13 +120,14 @@ app.get("/result/*", function (req, res) {
 
     var fileData = fs.readFileSync('/home/pi/cloud/results/' + file + '.result', 'utf8');
     var lines = fileData.split('\n');
-    console.log(fileData);
-    console.log(lines);
     
     for(var i = 0;i < lines.length;i++){
+        console.log(fileData[i]);
+        var jayZ = JSON.parse(fileData[i]);
+        console.log(jayZ);
         html = html + '<tr>\n';
         headers.forEach(
-            element => html = html + '<td>' + fileData[i][element] + '</td>\n'
+            element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
         html = html + '</tr>\n';
     }
