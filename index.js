@@ -123,10 +123,10 @@ app.get("/result/*", function (req, res) {
         crlfDelay: Infinity
       });
       
-    rl.on('line', (line) => {  
-        console.log(line);
+    rl.on('line', (line) => {
         html = html + '<tr>\n';
-        jayZ = JSON.parse(line);
+        jayZ = JSON.parse(line);  
+        console.log(jayZ);
         headers.forEach(
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
