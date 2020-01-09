@@ -135,7 +135,7 @@ app.get("/result/*", function (req, res) {
             html = html + '</table>\n';
             html = html + '</body>';
             res.send(html);
-            return;
+            break;
         }
     });
     
