@@ -152,8 +152,10 @@ const fs = require('fs');
     var html = '<body>\n';
 
     fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
+        if(file.indexOf('.header') > -1) {
         console.log(file);
         html = html + '<a href="/result/' + file + '">' + file.substring(0, file.lastIndexOf('.')) + '</a><br>\n';
+        }
     });
     html = html + '</body>';
     res.send(html);
