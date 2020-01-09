@@ -131,7 +131,7 @@ app.get("/result/*", function (req, res) {
             element => html = html + '<td>' + jayZ[element] + '</td>\n'
             );
         html = html + '</tr>\n';
-        if(line.indexOf(0) != '{') {
+        if(line.indexOf('{') < 0) {
             html = html + '</table>\n';
             html = html + '</body>';
             res.send(html);
