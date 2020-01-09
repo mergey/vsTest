@@ -124,16 +124,9 @@ app.get("/result/*", function (req, res) {
     console.log(lines);
     
     for(var i = 0;i < lines.length;i++){
-        var line = fileData[i];
-        console.log(line);
-        if(line.indexOf('{') < 0) {
-            break;
-        }
         html = html + '<tr>\n';
-        jayZ = JSON.parse(line);
-        console.log(jayZ);
         headers.forEach(
-            element => html = html + '<td>' + jayZ[element] + '</td>\n'
+            element => html = html + '<td>' + fileData[i][element] + '</td>\n'
             );
         html = html + '</tr>\n';
     }
