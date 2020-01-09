@@ -19,7 +19,9 @@ var cookieParser = require('cookie-parser');
 //var cookieSession     = require('cookie-session');
 var session = require('express-session');
 var Express = require('express');
-//var exphbs = require('express-handlebars');
+var readline = require('readline');
+
+
 
 const { exec } = require('child_process');
 
@@ -95,10 +97,49 @@ app.get("/com", function (req, res) {
  * 404
  */
 app.get("/result/*", function (req, res) {
+
     var file = req.url;
-    var fileName = file.substring(file.lastIndexOf('/'), file.length-1);
-    //res.send("404 alter, 404!");
-    res.send(fileName);
+    file = file.substring(file.lastIndexOf('/') +1, file.lastIndexOf('.'));
+
+
+    var headerData = fs.readFileSync('/home/pi/cloud/result/' + file + '.header');
+    headers = [];
+    while( headerData.indexOf(' ') > -1 ) {
+        while(headerData.substring(0,1) == ' ') {
+            headerData = headerData.substring(1, headerData.length);
+        }
+        headers.push(headerData.substring(0, headerData.indexOf(' ')));
+    }
+    headers.push(headerData.substring(0, headerData.length));
+
+    var html = '<body>\n' + file + '<table style="width:100%">\n<tr>\n'
+    
+    headers.forEach(
+        header => html = html + '<th>' + header + '</th>'
+    );
+
+    html = html + '</tr>';
+    
+    var rd = readline.createInterface({
+        input: fs.createReadStream('/home/pi/cloud/result/' + file + '.result'),
+        output: process.stdout,
+        console: false
+    });
+    rd.on('line', function(line) {
+        html = html + '<tr>';
+        jayZ = JSON.parse(line);
+        headers.forEach(
+            element => html = html + '<td>' + element + '</td>'
+            );
+        html = html + '</tr>';
+    });
+    
+    html = html + '</table>';
+    //const fileData = JSON.parse(fs.readFileSync(path.join(__dirname + filename)));
+    const HTTP_PORT = CONFIG.HTTP_PORT;
+    html = html + '</body>';
+
+    res.send(html);
 });
 
 
