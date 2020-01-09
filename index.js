@@ -102,7 +102,7 @@ app.get("/result/*", function (req, res) {
     file = file.substring(file.lastIndexOf('/') +1, file.lastIndexOf('.'));
 
 
-    var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header');
+    var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header', 'utf8');
     headers = [];
     while( headerData.indexOf(' ') > -1 ) {
         while(headerData.substring(0,1) == ' ') {
