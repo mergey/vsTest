@@ -102,7 +102,7 @@ app.get("/result/*", function (req, res) {
     file = file.substring(file.lastIndexOf('/') +1, file.lastIndexOf('.'));
 
 
-    var headerData = fs.readFileSync('/home/pi/cloud/result/' + file + '.header');
+    var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header');
     headers = [];
     while( headerData.indexOf(' ') > -1 ) {
         while(headerData.substring(0,1) == ' ') {
@@ -121,7 +121,7 @@ app.get("/result/*", function (req, res) {
     html = html + '</tr>';
     
     var rd = readline.createInterface({
-        input: fs.createReadStream('/home/pi/cloud/result/' + file + '.result'),
+        input: fs.createReadStream('/home/pi/cloud/results/' + file + '.result'),
         output: process.stdout,
         console: false
     });
