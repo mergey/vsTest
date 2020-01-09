@@ -105,8 +105,8 @@ app.get("/result/*", function (req, res) {
     var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header', 'utf8');
     headers = [];
     while( headerData.indexOf('	') > -1 ) {
-        headers.push(headerData.substring(0, headerData.indexOf(' ')));
-        headerData = headerData.substring(headerData.indexOf(' ')+1, headerData.lenght);
+        headers.push(headerData.substring(0, headerData.indexOf('	')));
+        headerData = headerData.substring(headerData.indexOf('	')+1, headerData.lenght);
     }
     headers.push(headerData.substring(0, headerData.length));
 
