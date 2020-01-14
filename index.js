@@ -101,7 +101,7 @@ app.get("/refresh/*", function (req, res) {
     var file = req.url;
     file = file.substring(file.lastIndexOf('/') +1, file.length);
 
-    runCom('ssh vs05 "echo ' + file + '"', function(stdout) {
+    runCom('ssh vs05 "sh /home/pi/requests/request-script.sh ' + file + '"', function(stdout) {
         res.send(stdout);
     });
 });
