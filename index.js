@@ -96,10 +96,23 @@ app.get("/com", function (req, res) {
 /** 
  * 404
  */
+app.get("/refresh/*", function (req, res) {
+
+    var file = req.url;
+    file = file.substring(file.lastIndexOf('/') +1, file.length);
+
+    runCom('ssh vs05 "hostname -f"', function(stdout) {
+        res.send(stdout);
+    });
+});
+
+/** 
+ * 404
+ */
 app.get("/result/*", function (req, res) {
 
     var file = req.url;
-    file = file.substring(file.lastIndexOf('/') +1, file.lastIndexOf('.'));
+    file = file.substring(file.lastIndexOf('/') +1, file.length);
 
 
     var headerData = fs.readFileSync('/home/pi/cloud/results/' + file + '.header', 'utf8');
@@ -108,7 +121,7 @@ app.get("/result/*", function (req, res) {
     headers = [];
     while( headerData.indexOf('	') > -1 ) {
         headers.push(headerData.substring(0, headerData.indexOf('	')));
-        headerData = headerData.substring(headerData.indexOf('	')+1, headerData.lenght);
+        headerData = headerData.substring(headerData.indexOf('	')+1, headerData.length);
     }
     headers.push(headerData.substring(0, headerData.length-1));
     
@@ -156,8 +169,10 @@ const fs = require('fs');
 
     fs.readdirSync("/home/pi/cloud/results/").forEach(file => {
         if(file.indexOf('.header') > -1) {
+            var filename = file.substring(0, file.lastIndexOf('.'));
         console.log(file);
-        html = html + '<a href="/result/' + file + '">' + file.substring(0, file.lastIndexOf('.')) + '</a><br>\n';
+        html = html + '<a href="/refresh/' + filename + '">' + filename + '</a>\n';
+        html = html + '<a href="/result/' + filename + '">' + filename + '</a><br>\n';
         }
     });
     html = html + '</body>';
