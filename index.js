@@ -101,7 +101,7 @@ app.get("/refresh/*", function (req, res) {
     var file = req.url;
     file = file.substring(file.lastIndexOf('/') +1, file.length);
 
-    runCom('ssh vs05 "hostname -f"', function(stdout) {
+    runCom('ssh vs05 "echo ' + file + '"', function(stdout) {
         res.send(stdout);
     });
 });
@@ -171,7 +171,7 @@ const fs = require('fs');
         if(file.indexOf('.header') > -1) {
             var filename = file.substring(0, file.lastIndexOf('.'));
         console.log(file);
-        html = html + '<a href="/refresh/' + filename + '">' + filename + '</a>\n';
+        html = html + '<a href="/refresh/' + filename + '">refresh</a> | \n';
         html = html + '<a href="/result/' + filename + '">' + filename + '</a><br>\n';
         }
     });
